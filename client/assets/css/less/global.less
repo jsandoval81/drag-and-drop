@@ -16,59 +16,71 @@ body {
 /*******************/
 /** Page elements **/
 /*******************/
-/** Dots container **/
-.img-src-container {
-    margin: 20px auto;    
+/** Drag container **/
+.container {
+    min-width: 1170px;
 
-    .logo-dot {
-        z-index: 10;
-        padding: 10px;
-    }
-}
-
-/** Logo container **/
-.img-dest-container {
-    position: relative;
-
-    /** Drop targets **/
-    .dest-dot {
-        position: absolute;
-        width: 90px;
-        height: 90px;
-        z-index: 5;
-        background-color: transparent;
-        /*border: 1px solid red;*/
-    }
-    .dest-dot[data-dot-color='black'][data-color-index='1'] {
-        left: 315px;
-        top: 190px;
-    }
-    .dest-dot[data-dot-color='blue'] {
-        left: 542px;
-        top: 45px;
-    }
-    .dest-dot[data-dot-color='red'] {
-        left: 723px;
-        top: 70px;
-    }
-    .dest-dot[data-dot-color='black'][data-color-index='2'] {
-        left: 688px;
-        top: 285px;
-    }
-    .dest-dot[data-dot-color='green'] {
-        left: 412px;
-        top: 331px;
+    /** Success message **/
+    .alert-success {
+        display: none;
     }
 
-    /** Drop target hover classes **/
-    .hover-target-good {
-        background-color: @green;
+    /** Dots container **/
+    .img-src-container {
+        margin: 20px auto;    
+
+        .logo-dot {
+            z-index: 10;
+            margin: 10px;
+        }
     }
-    .hover-target-bad {
-        background-color: @red;
-    }
-    .hover-target-none {
-        background-color: transparent;
+
+    /** Logo container **/
+    .img-dest-container {
+        position: relative;
+
+        /** Drop targets **/
+        .dest-dot {
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            z-index: 5;
+            background-color: transparent;
+            /*border: 1px solid red;*/
+        }
+        .dest-dot[data-dot-color='black'][data-color-index='1'] {
+            left: 315px;
+            top: 190px;
+        }
+        .dest-dot[data-dot-color='blue'] {
+            left: 543px;
+            top: 45px;
+        }
+        .dest-dot[data-dot-color='red'] {
+            left: 723px;
+            top: 70px;
+        }
+        .dest-dot[data-dot-color='black'][data-color-index='2'] {
+            left: 688px;
+            top: 285px;
+        }
+        .dest-dot[data-dot-color='green'] {
+            left: 411px;
+            top: 333px;
+        }
+
+        /** Drop target hover classes **/
+        .hover-target-good {
+            /*background-color: @green;*/
+            background-image: url("../../img/valid.png");
+        }
+        .hover-target-bad {
+            /*background-color: @red;*/
+            background-image: url("../../img/invalid.png");
+        }
+        .hover-target-none {
+            background-color: transparent;
+        }
     }
 }
 

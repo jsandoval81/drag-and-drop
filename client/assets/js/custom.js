@@ -10,7 +10,14 @@
 (function ($) {
     'use strict';
 
-    var dropTarget = false;
+    //========================================
+    //== Create an application state object ==
+    //========================================
+    var dragInfo = {
+        numComplete: 0,
+        dropArea: false,
+        dropTarget: false
+    };
 
     //=================================
     //== Check if drop area is valid ==
@@ -28,12 +35,26 @@
         if (direction === 'off') {
             $(e.target).removeClass('hover-target-good hover-target-bad');
         } else {
-            if (dropTarget) {
+            if (dragInfo.dropTarget) {
                 $(e.target).addClass('hover-target-good');
             } else {
                 $(e.target).addClass('hover-target-bad');
             }
         }
+    }
+
+    //============================
+    //== Snap dot into position ==
+    //============================
+    function snapDot(e, ui) {
+        var dragPos = $(ui.draggable).offset(),
+            dropPos = $(e.target).offset(),
+            topSnap = dropPos.top - dragPos.top + 1,
+            leftSnap = dropPos.left - dragPos.left + 1;
+        $(ui.draggable).animate({
+            top: '+=' + topSnap,
+            left: '+=' + leftSnap
+        });
     }
 
     //====================================
@@ -50,11 +71,31 @@
     //== Complete a valid drop ==
     //===========================
     function completeDrop(e, ui) {
-        //== *** Fix/snap the position for the user HERE
-        //== *** Update the label count HERE
-
+        //== Snap the dot into exact position for the user
+        snapDot(e, ui);
+        //== Disable the draggable element
         $(ui.draggable).draggable('disable');
-        dropTarget = false;
+        //== Disbale the droppable element
+        $(e.target).droppable('disable');
+        //== Update the dragInfo object
+        dragInfo.numComplete += 1;
+        dragInfo.dropArea = false;
+        dragInfo.dropTarget = false;
+        //== Update the count label
+        updateMessage();
+    }
+
+    //===============================
+    //== Update the complete count ==
+    //===============================
+    function updateMessage() {
+        //== Update the dragInfo object
+        $('#complete-count').fadeOut().text(dragInfo.numComplete.toString()).fadeIn();
+        //== Congratulate user when complete
+        if (dragInfo.numComplete >= 5) {
+            $('#alert-box-start').hide(0);
+            $('#alert-box-finish').fadeIn();
+        }
     }
 
     //==================================
@@ -62,14 +103,15 @@
     //==================================
     $('.logo-dot').draggable({
         containment: '.drag-container',
+        stack: '.logo-dot',
         start: function (e, ui) {
-            ui.helper.data('dropArea', false);
+            dragInfo.dropArea = false;
+            dragInfo.dropTarget = false;
         },
         stop: function (e, ui) {
-            if (!ui.helper.data('dropArea')) {
+            if (!dragInfo.dropArea) {
                resetDot(this);
             }
-            
         }
     });
 
@@ -80,20 +122,20 @@
         accept: '.logo-dot',
         tolerance: 'intersect',
         drop: function (e, ui) {
-            if (dropTarget) {
+            if (dragInfo.dropTarget) {
                 completeDrop(e, ui);
             } else {
                 resetDot(ui.draggable);
             }
-            ui.helper.data('dropArea', true);
+            dragInfo.dropArea = true;
             hoverHelper(e, 'off');
         },
         over: function (e, ui) {
-            dropTarget = isValidTarget(e, ui);
+            dragInfo.dropTarget = isValidTarget(e, ui);
             hoverHelper(e, 'on');
         },
         out: function (e, ui) {
-            dropTarget = false;
+            dragInfo.dropTarget = false;
             hoverHelper(e, 'off');
         }
     });

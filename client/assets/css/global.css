@@ -18,21 +18,29 @@ body {
 /*******************/
 /** Page elements **/
 /*******************/
-/** Dots container **/
-.img-src-container {
+/** Drag container **/
+.container {
+  min-width: 1170px;
+  /** Success message **/
+  /** Dots container **/
+  /** Logo container **/
+}
+.container .alert-success {
+  display: none;
+}
+.container .img-src-container {
   margin: 20px auto;
 }
-.img-src-container .logo-dot {
+.container .img-src-container .logo-dot {
   z-index: 10;
-  padding: 10px;
+  margin: 10px;
 }
-/** Logo container **/
-.img-dest-container {
+.container .img-dest-container {
   position: relative;
   /** Drop targets **/
   /** Drop target hover classes **/
 }
-.img-dest-container .dest-dot {
+.container .img-dest-container .dest-dot {
   position: absolute;
   width: 90px;
   height: 90px;
@@ -40,33 +48,35 @@ body {
   background-color: transparent;
   /*border: 1px solid red;*/
 }
-.img-dest-container .dest-dot[data-dot-color='black'][data-color-index='1'] {
+.container .img-dest-container .dest-dot[data-dot-color='black'][data-color-index='1'] {
   left: 315px;
   top: 190px;
 }
-.img-dest-container .dest-dot[data-dot-color='blue'] {
-  left: 542px;
+.container .img-dest-container .dest-dot[data-dot-color='blue'] {
+  left: 543px;
   top: 45px;
 }
-.img-dest-container .dest-dot[data-dot-color='red'] {
+.container .img-dest-container .dest-dot[data-dot-color='red'] {
   left: 723px;
   top: 70px;
 }
-.img-dest-container .dest-dot[data-dot-color='black'][data-color-index='2'] {
+.container .img-dest-container .dest-dot[data-dot-color='black'][data-color-index='2'] {
   left: 688px;
   top: 285px;
 }
-.img-dest-container .dest-dot[data-dot-color='green'] {
-  left: 412px;
-  top: 331px;
+.container .img-dest-container .dest-dot[data-dot-color='green'] {
+  left: 411px;
+  top: 333px;
 }
-.img-dest-container .hover-target-good {
-  background-color: #008000;
+.container .img-dest-container .hover-target-good {
+  /*background-color: @green;*/
+  background-image: url("../../img/valid.png");
 }
-.img-dest-container .hover-target-bad {
-  background-color: #ff0000;
+.container .img-dest-container .hover-target-bad {
+  /*background-color: @red;*/
+  background-image: url("../../img/invalid.png");
 }
-.img-dest-container .hover-target-none {
+.container .img-dest-container .hover-target-none {
   background-color: transparent;
 }
 /** Buttons container **/

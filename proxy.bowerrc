@@ -1,5 +1,8 @@
 {
     "directory": "bower_components",
+    "registry":     "http://bower.herokuapp.com",
+    "proxy" :       "http://CORP%5Cuser:pw@10.100.28.22:8080",
+    "https-proxy" : "http://CORP%5Cuser:pw@10.100.28.22:8080",
     "strict-ssl":    false,
     "storage": {
         "packages": ".bower-cache",
