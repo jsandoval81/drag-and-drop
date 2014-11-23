@@ -1,0 +1,75 @@
+/** This is our main LESS variables file **/
+/**************/
+/* Typography */
+/**************/
+/**********/
+/* Colors */
+/**********/
+/*******************/
+/* Global elements */
+/*******************/
+/* Body element */
+body {
+  margin: 0;
+  padding: 40px 0;
+  font-family: 'Calibri', 'Tahoma', sans-serif;
+  background-color: #ffffff;
+}
+/*******************/
+/** Page elements **/
+/*******************/
+/** Dots container **/
+.img-src-container {
+  margin: 20px auto;
+}
+.img-src-container .logo-dot {
+  z-index: 10;
+  padding: 10px;
+}
+/** Logo container **/
+.img-dest-container {
+  position: relative;
+  /** Drop targets **/
+  /** Drop target hover classes **/
+}
+.img-dest-container .dest-dot {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  z-index: 5;
+  background-color: transparent;
+  /*border: 1px solid red;*/
+}
+.img-dest-container .dest-dot[data-dot-color='black'][data-color-index='1'] {
+  left: 315px;
+  top: 190px;
+}
+.img-dest-container .dest-dot[data-dot-color='blue'] {
+  left: 542px;
+  top: 45px;
+}
+.img-dest-container .dest-dot[data-dot-color='red'] {
+  left: 723px;
+  top: 70px;
+}
+.img-dest-container .dest-dot[data-dot-color='black'][data-color-index='2'] {
+  left: 688px;
+  top: 285px;
+}
+.img-dest-container .dest-dot[data-dot-color='green'] {
+  left: 412px;
+  top: 331px;
+}
+.img-dest-container .hover-target-good {
+  background-color: #008000;
+}
+.img-dest-container .hover-target-bad {
+  background-color: #ff0000;
+}
+.img-dest-container .hover-target-none {
+  background-color: transparent;
+}
+/** Buttons container **/
+.logo-buttons {
+  margin: 10px 0;
+}

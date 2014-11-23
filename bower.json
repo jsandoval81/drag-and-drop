@@ -1,0 +1,10 @@
+{
+    "name": "drag-and-drop",
+    "version": "0.1.0",
+    "dependencies": {
+        "jquery": "1.x",
+        "jquery-ui": "1.11.x",
+        "d3": "3.4.x",
+        "bootstrap": "3.x"
+    }
+}

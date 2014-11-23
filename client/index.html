@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en"
+>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Drag and Drop</title>
+    <link rel="stylesheet" href="assets/css/build/application.min.css" />
+</head>
+
+<body>
+    
+    <div class="container text-center">
+        <!-- Alert Box -->
+        <div class="alert alert-info text-center">
+            <strong>Place the images below in to their correct locations (<span id="complete-count">0</span> of 5)</strong>
+        </div>
+
+        <!-- Drag and Drop Container -->
+        <div class="drag-container">
+
+            <!-- Draggable Dots -->
+            <div class="img-src-container">
+                <img class="logo-dot" data-dot-color="black" src="assets/img/ia-logo-dot-black.png" alt="black dot 1" />
+                <img class="logo-dot" data-dot-color="blue" src="assets/img/ia-logo-dot-blue.png" alt="blue dot" />
+                <img class="logo-dot" data-dot-color="green" src="assets/img/ia-logo-dot-green.png" alt="green dot" />
+                <img class="logo-dot" data-dot-color="red" src="assets/img/ia-logo-dot-red.png" alt="red dot" />
+                <img class="logo-dot" data-dot-color="black" src="assets/img/ia-logo-dot-black.png" alt="black dot 2" />
+            </div>
+
+            <!-- Destination Logo -->
+            <div class="img-dest-container">
+                <img class="logo" src="assets/img/ia-logo-back.png" alt="ia-logo" />
+                <div class="dest-dot" data-dot-color="black" data-color-index="1"></div>
+                <div class="dest-dot" data-dot-color="blue"></div>
+                <div class="dest-dot" data-dot-color="red"></div>
+                <div class="dest-dot" data-dot-color="black" data-color-index="2"></div>
+                <div class="dest-dot" data-dot-color="green"></div>
+            </div>
+
+        </div>
+
+        <!-- Reset Button -->
+        <div class="logo-buttons">
+            <button id="start-over" class="btn btn-warning">Start Over</button>
+        </div>
+
+    </div>
+
+    <!-- Scripting -->
+    <script src="assets/js/build/application.min.js"></script>
+    <script src="//localhost:35729/livereload.js"></script>
+</body>
+</html>
