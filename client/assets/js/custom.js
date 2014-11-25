@@ -2,116 +2,94 @@
 //  IA Logo Drag and Drop                   //
 //                                          //
 //  Author: John Sandoval                   //
-//  Date: 11/23/2014                        //
 //==========================================//
 
-(function ($) {
+var App;
+App = (function ($) {
     'use strict';
 
-    //========================================
-    //== Create an application state object ==
-    //========================================
-    var dragInfo = {
-        numComplete: 0,
-        dropArea: false,
-        dropTarget: false
-    };
-
-    //================
-    //== Begin drag ==
-    //================
-    function beginDrag(e) {
-        dragInfo.dropArea = false;
-        dragInfo.dropTarget = false;
-        $(e.target).css('opacity', '0.7');
-    }
-
-    //=================================
-    //== Check if drop area is valid ==
-    //=================================
-    function isValidTarget(e, ui) {
-        var dragColor = $(ui.draggable).data('dotColor'),
-            dropColor = $(e.target).data('dotColor');
-        return dragColor === dropColor;
-    }
-
-    //===============================
-    //== Hover styles to help user ==
-    //===============================
-    function hoverHelper(e, direction) {
-        if (direction === 'off') {
-            $(e.target).removeClass('hover-target-good hover-target-bad');
-        } else {
-            if (dragInfo.dropTarget) {
-                $(e.target).addClass('hover-target-good');
-            } else {
-                $(e.target).addClass('hover-target-bad');
+    //====================================
+    //== Create an App interface object ==
+    //====================================
+    var AppModule = {
+            //== Create an application state object
+            dragInfo: {
+                numComplete: 0,
+                dropArea: false,
+                dropTarget: false
+            },
+            //== Begin drag
+            beginDrag: function (e) {
+                AppModule.dragInfo.dropArea = false;
+                AppModule.dragInfo.dropTarget = false;
+                $(e.target).css('opacity', '0.7');
+            },
+            //== Check if drop area is valid
+            isValidTarget: function (e, ui) {
+                var dragColor = $(ui.draggable).data('dotColor'),
+                    dropColor = $(e.target).data('dotColor');
+                return dragColor === dropColor;
+            },
+            //== Hover styles
+            hoverHelper: function (e, direction) {
+                if (direction === 'off') {
+                    $(e.target).removeClass('hover-target-good hover-target-bad');
+                } else {
+                    if (AppModule.dragInfo.dropTarget) {
+                        $(e.target).addClass('hover-target-good');
+                    } else {
+                        $(e.target).addClass('hover-target-bad');
+                    }
+                }
+            },
+            //== Snap dot into position
+            snapDot: function (e, ui) {
+                var dragPos = $(ui.draggable).offset(),
+                    dropPos = $(e.target).offset(),
+                    topSnap = dropPos.top - dragPos.top + 1,
+                    leftSnap = dropPos.left - dragPos.left + 1;
+                $(ui.draggable).css('opacity', '1');
+                $(ui.draggable).animate({
+                    top: '+=' + topSnap,
+                    left: '+=' + leftSnap
+                });
+            },
+            //== Reset dot to original position
+            resetDot: function (dot) {
+                $(dot).animate({
+                    top: '0px',
+                    left: '0px',
+                    opacity: '1'
+                });
+            },
+            //== Toggle event listeners
+            toggleListeners: function (logo, dest, toggle) {
+                $(logo).draggable(toggle);
+                $(dest).droppable(toggle);
+            },
+            incrementCount: function () {
+                AppModule.dragInfo.numComplete += 1;
+                AppModule.dragInfo.dropArea = false;
+                AppModule.dragInfo.dropTarget = false;
+            },
+            //== Update the message label
+            updateMessage: function () {
+                $('#complete-count').fadeOut().text(AppModule.dragInfo.numComplete.toString()).fadeIn();
+                if (AppModule.dragInfo.numComplete === 0 && $('#alert-box-start').is(':hidden')) {
+                    $('#alert-box-finish').hide(0);
+                    $('#alert-box-start').fadeIn(600);
+                } else if (AppModule.dragInfo.numComplete >= 5) {
+                    $('#alert-box-start').hide(0);
+                    $('#alert-box-finish').fadeIn(600);
+                }
+            },
+            //== Reset the state object
+            resetAppState: function () {
+                AppModule.dragInfo.numComplete = 0;
+                AppModule.dragInfo.dropArea = false;
+                AppModule.dragInfo.dropTarget = false;
             }
-        }
-    }
-
-    //============================
-    //== Snap dot into position ==
-    //============================
-    function snapDot(e, ui) {
-        var dragPos = $(ui.draggable).offset(),
-            dropPos = $(e.target).offset(),
-            topSnap = dropPos.top - dragPos.top + 1,
-            leftSnap = dropPos.left - dragPos.left + 1;
-        $(ui.draggable).animate({
-            top: '+=' + topSnap,
-            left: '+=' + leftSnap
-        });
-    }
-
-    //====================================
-    //== Reset dot to original position ==
-    //====================================
-    function resetDot(dot) {
-        $(dot).animate({
-            top: '0px',
-            left: '0px',
-            opacity: '1'
-        });
-    }
-
-    //===========================
-    //== Complete a valid drop ==
-    //===========================
-    function completeDrop(e, ui) {
-        //== Reset the opacity
-        $(ui.draggable).css('opacity', '1');
-        //== Snap the dot into exact position for the user
-        snapDot(e, ui);
-        //== Disable the draggable element
-        $(ui.draggable).draggable('disable');
-        //== Disable the droppable element
-        $(e.target).droppable('disable');
-        //== Update the dragInfo object
-        dragInfo.numComplete += 1;
-        dragInfo.dropArea = false;
-        dragInfo.dropTarget = false;
-        //== Update the message label
-        updateMessage();
-    }
-
-    //==============================
-    //== Update the message label ==
-    //==============================
-    function updateMessage() {
-        //== Update the dragInfo object
-        $('#complete-count').fadeOut().text(dragInfo.numComplete.toString()).fadeIn();
-        //== Update the message on reset
-        if (dragInfo.numComplete === 0 && $('#alert-box-start').is(':hidden')) {
-            $('#alert-box-finish').hide(0);
-            $('#alert-box-start').fadeIn(600);
-        }
-        //== Congratulate user when complete
-        else if (dragInfo.numComplete >= 5) {
-            $('#alert-box-start').hide(0);
-            $('#alert-box-finish').fadeIn(600);
-        }
-    }
+        };
 
     //==================================
     //== Configure draggable elements ==
@@ -120,11 +98,12 @@
         containment: '.drag-container',
         stack: '.logo-dot',
         start: function (e, ui) {
-            beginDrag(e, ui);
+            AppModule.beginDrag(e, ui);
         },
-        stop: function (e, ui) {
-            if (!dragInfo.dropArea) {
-               resetDot(this);
+        stop: function () {
+            //== If 'drop' did not handle the reset, handle it here
+            if (!AppModule.dragInfo.dropArea) {
+                AppModule.resetDot(this);
             }
         }
     });
@@ -136,21 +115,24 @@
         accept: '.logo-dot',
         tolerance: 'intersect',
         drop: function (e, ui) {
-            if (dragInfo.dropTarget) {
-                completeDrop(e, ui);
+            if (AppModule.dragInfo.dropTarget) {
+                AppModule.snapDot(e, ui);
+                AppModule.toggleListeners(ui.draggable, e.target, 'disable');
+                AppModule.incrementCount();
+                AppModule.updateMessage();
             } else {
-                resetDot(ui.draggable);
+                AppModule.resetDot(ui.draggable);
             }
-            dragInfo.dropArea = true;
-            hoverHelper(e, 'off');
+            AppModule.dragInfo.dropArea = true;
+            AppModule.hoverHelper(e, 'off');
         },
         over: function (e, ui) {
-            dragInfo.dropTarget = isValidTarget(e, ui);
-            hoverHelper(e, 'on');
+            AppModule.dragInfo.dropTarget = AppModule.isValidTarget(e, ui);
+            AppModule.hoverHelper(e, 'on');
         },
-        out: function (e, ui) {
-            dragInfo.dropTarget = false;
-            hoverHelper(e, 'off');
+        out: function (e) {
+            AppModule.dragInfo.dropTarget = false;
+            AppModule.hoverHelper(e, 'off');
         }
     });
 
@@ -159,20 +141,16 @@
     //====================
     $('#start-over').on('click', function () {
         //== Reset the dots
-         $('.logo-dot').animate({
-            top: '0px',
-            left: '0px',
-            opacity: '1'
-        });
+        AppModule.resetDot('.logo-dot');
         //== Reset the event listeners
-        $('.logo-dot').draggable('enable');
-        $('.dest-dot').droppable('enable');
+        AppModule.toggleListeners('.logo-dot', '.dest-dot', 'enable');
         //== Reset the state object
-        dragInfo.numComplete = 0;
-        dragInfo.dropArea = false;
-        dragInfo.dropTarget = false;
+        AppModule.resetAppState();
         //== Update the message label
-        updateMessage();
+        AppModule.updateMessage();
     });
 
-})(jQuery);
+    //== Expose the AppModule object
+    return AppModule;
+
+}(jQuery));

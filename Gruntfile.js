@@ -85,7 +85,7 @@ module.exports = function (grunt) {
             options: {
                 jshintrc: '.jshintrc'
             },
-            clientjs: ['client/**/*.js', '!client/assets/js/build/*.js']
+            clientjs: ['client/**/*.js', '!client/assets/js/build/*.js', '!client/testing/**/*.js']
         },
 
         //========================
@@ -115,6 +115,18 @@ module.exports = function (grunt) {
                     'client/assets/js/custom.js'
                 ],
                 dest: 'client/assets/js/build/application.js'
+            },
+            //== Concat just the dependency libraries for testing
+            testDependencies: {
+                src: [
+                    'bower_components/jquery/dist/jquery.js',
+                    'bower_components/jquery-ui/ui/core.js',
+                    'bower_components/jquery-ui/ui/widget.js',
+                    'bower_components/jquery-ui/ui/mouse.js',
+                    'bower_components/jquery-ui/ui/draggable.js',
+                    'bower_components/jquery-ui/ui/droppable.js'
+                ],
+                dest: 'client/testing/dependencies/dependencies.js'
             }
         },
 
@@ -154,7 +166,9 @@ module.exports = function (grunt) {
     //====================
     //== Default task
     grunt.registerTask('default', ['']);
-       //== Dev task (Prepare assets, start application, watch for changes)
-    grunt.registerTask('dev', [ 'less:dev', 'csslint:strict', 'concat:css', 'cssmin', 'jshint:clientjs', 'concat:js', 'uglify', 'watch' ]);
+    //== Dev task (Prepare assets, start application, watch for changes)
+    grunt.registerTask('dev', [ 'less:dev', 'csslint:strict', 'concat:css', 'cssmin', 'jshint:clientjs', 'concat:js', 'concat:testDependencies', 'uglify', 'watch' ]);
+    //== Testing task (Concat JS dependencies)
+    grunt.registerTask('test', [ 'concat:testDependencies' ]);
 
 };
