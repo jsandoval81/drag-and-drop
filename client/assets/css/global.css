@@ -1,4 +1,4 @@
-/** This is our main LESS variables file **/
+/** LESS variables file **/
 /**************/
 /* Typography */
 /**************/
@@ -8,39 +8,40 @@
 /*******************/
 /* Global elements */
 /*******************/
-/* Body element */
+/** Body element **/
 body {
   margin: 0;
-  padding: 40px 0;
+  padding: 15px 0;
   font-family: 'Calibri', 'Tahoma', sans-serif;
   background-color: #ffffff;
 }
 /*******************/
 /** Page elements **/
 /*******************/
+/** Success message **/
+.alert-success {
+  display: none;
+}
 /** Drag container **/
-.container {
-  min-width: 1170px;
-  /** Success message **/
+.drag-container {
+  margin: 0 auto;
+  width: 600px;
   /** Dots container **/
   /** Logo container **/
 }
-.container .alert-success {
-  display: none;
-}
-.container .img-src-container {
+.drag-container .img-src-container {
   margin: 20px auto;
 }
-.container .img-src-container .logo-dot {
+.drag-container .img-src-container .logo-dot {
   z-index: 10;
   margin: 10px;
 }
-.container .img-dest-container {
+.drag-container .img-dest-container {
   position: relative;
   /** Drop targets **/
   /** Drop target hover classes **/
 }
-.container .img-dest-container .dest-dot {
+.drag-container .img-dest-container .dest-dot {
   position: absolute;
   width: 90px;
   height: 90px;
@@ -48,35 +49,33 @@ body {
   background-color: transparent;
   /*border: 1px solid red;*/
 }
-.container .img-dest-container .dest-dot[data-dot-color='black'][data-color-index='1'] {
-  left: 315px;
+.drag-container .img-dest-container .dest-dot[data-dot-color='black'][data-color-index='1'] {
+  left: 45px;
   top: 190px;
 }
-.container .img-dest-container .dest-dot[data-dot-color='blue'] {
-  left: 543px;
+.drag-container .img-dest-container .dest-dot[data-dot-color='blue'] {
+  left: 274px;
   top: 45px;
 }
-.container .img-dest-container .dest-dot[data-dot-color='red'] {
-  left: 723px;
+.drag-container .img-dest-container .dest-dot[data-dot-color='red'] {
+  left: 454px;
   top: 70px;
 }
-.container .img-dest-container .dest-dot[data-dot-color='black'][data-color-index='2'] {
-  left: 688px;
+.drag-container .img-dest-container .dest-dot[data-dot-color='black'][data-color-index='2'] {
+  left: 418px;
   top: 285px;
 }
-.container .img-dest-container .dest-dot[data-dot-color='green'] {
-  left: 411px;
+.drag-container .img-dest-container .dest-dot[data-dot-color='green'] {
+  left: 142px;
   top: 333px;
 }
-.container .img-dest-container .hover-target-good {
-  /*background-color: @green;*/
+.drag-container .img-dest-container .hover-target-good {
   background-image: url("../../img/valid.png");
 }
-.container .img-dest-container .hover-target-bad {
-  /*background-color: @red;*/
+.drag-container .img-dest-container .hover-target-bad {
   background-image: url("../../img/invalid.png");
 }
-.container .img-dest-container .hover-target-none {
+.drag-container .img-dest-container .hover-target-none {
   background-color: transparent;
 }
 /** Buttons container **/

@@ -1,14 +1,14 @@
 
-/** This is our main LESS variables file **/
+/** LESS variables file **/
 @import 'variables.less';
 
 /*******************/
 /* Global elements */
 /*******************/
-/* Body element */
+/** Body element **/
 body {
     margin: 0;
-    padding: 40px 0;
+    padding: 15px 0;
     font-family: @sansFontFamily;
     background-color: @white;
 }
@@ -16,14 +16,15 @@ body {
 /*******************/
 /** Page elements **/
 /*******************/
-/** Drag container **/
-.container {
-    min-width: 1170px;
+/** Success message **/
+.alert-success {
+    display: none;
+}
 
-    /** Success message **/
-    .alert-success {
-        display: none;
-    }
+/** Drag container **/
+.drag-container {
+    margin: 0 auto;
+    width: 600px;
 
     /** Dots container **/
     .img-src-container {
@@ -49,33 +50,31 @@ body {
             /*border: 1px solid red;*/
         }
         .dest-dot[data-dot-color='black'][data-color-index='1'] {
-            left: 315px;
+            left: 45px;
             top: 190px;
         }
         .dest-dot[data-dot-color='blue'] {
-            left: 543px;
+            left: 274px;
             top: 45px;
         }
         .dest-dot[data-dot-color='red'] {
-            left: 723px;
+            left: 454px;
             top: 70px;
         }
         .dest-dot[data-dot-color='black'][data-color-index='2'] {
-            left: 688px;
+            left: 418px;
             top: 285px;
         }
         .dest-dot[data-dot-color='green'] {
-            left: 411px;
+            left: 142px;
             top: 333px;
         }
 
         /** Drop target hover classes **/
         .hover-target-good {
-            /*background-color: @green;*/
             background-image: url("../../img/valid.png");
         }
         .hover-target-bad {
-            /*background-color: @red;*/
             background-image: url("../../img/invalid.png");
         }
         .hover-target-none {

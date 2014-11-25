@@ -111,7 +111,7 @@ module.exports = function (grunt) {
                     'bower_components/jquery-ui/ui/mouse.js',
                     'bower_components/jquery-ui/ui/draggable.js',
                     'bower_components/jquery-ui/ui/droppable.js',
-                    'bower_components/bootstrap/dist/js/bootstrap.js',
+                    /*'bower_components/bootstrap/dist/js/bootstrap.js',*/
                     'client/assets/js/custom.js'
                 ],
                 dest: 'client/assets/js/build/application.js'
