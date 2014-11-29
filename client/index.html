@@ -1,6 +1,5 @@
 <!doctype html>
-<html lang="en"
->
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -8,23 +7,18 @@
     <title>Drag and Drop</title>
     <link rel="stylesheet" href="assets/css/build/application.min.css" />
 </head>
-
 <body>
-    
     <div class="container text-center">
-        <!-- Alert Box (Start)-->
-        <div id="alert-box-start" class="alert alert-info text-center">
-            <strong>Place the images below in to their correct locations (<span id="complete-count">0</span> of 5)</strong>
+       <!-- Alert Box -->
+        <div id="alert-box" class="alert alert-info">
+            <div class="row">
+                <div class="col-sm-3 vertical-center"><strong><span id="alert-text"></span></strong></div>
+                <div class="col-sm-4 vertical-center"><strong>(<span id="complete-count">0</span> of 5)</strong></div>
+                <div class="col-sm-3 vertical-center"><button id="start-over" class="btn btn-warning">Start Over</button></div>
+            </div>
         </div>
-
-        <!-- Alert Box (Finish)-->
-        <div id="alert-box-finish" class="alert alert-success text-center">
-            <strong>Congratulations! You have completed the InspringApps logo! (5 of 5)</strong>
-        </div>
-
         <!-- Drag and Drop Container -->
         <div class="drag-container">
-
             <!-- Draggable Dots -->
             <div class="img-src-container">
                 <img class="logo-dot" data-dot-color="blue" src="assets/img/ia-logo-dot-blue.png" alt="blue dot" />
@@ -33,26 +27,17 @@
                 <img class="logo-dot" data-dot-color="black" src="assets/img/ia-logo-dot-black.png" alt="black dot 1" />                
                 <img class="logo-dot" data-dot-color="black" src="assets/img/ia-logo-dot-black.png" alt="black dot 2" />
             </div>
-
             <!-- Destination Logo -->
             <div class="img-dest-container">
-                <img class="logo" src="assets/img/ia-logo-back.png" alt="ia-logo" />
+                <img class="logo" src="assets/img/ia-logo-back.png" alt="IA logo" />
                 <div class="dest-dot" data-dot-color="black" data-color-index="1"></div>
                 <div class="dest-dot" data-dot-color="blue"></div>
                 <div class="dest-dot" data-dot-color="red"></div>
                 <div class="dest-dot" data-dot-color="black" data-color-index="2"></div>
                 <div class="dest-dot" data-dot-color="green"></div>
             </div>
-
         </div>
-
-        <!-- Reset Button -->
-        <div class="logo-buttons">
-            <button id="start-over" class="btn btn-warning">Start Over</button>
-        </div>
-
     </div>
-
     <!-- Scripting -->
     <script src="assets/js/build/application.min.js"></script>
     <script src="//localhost:35729/livereload.js"></script>

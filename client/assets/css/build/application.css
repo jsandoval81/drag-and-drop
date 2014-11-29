@@ -6338,9 +6338,9 @@ button.close {
 /**********/
 /* Colors */
 /**********/
-/*******************/
-/* Global elements */
-/*******************/
+/*********************/
+/** Global elements **/
+/*********************/
 /** Body element **/
 body {
   margin: 0;
@@ -6348,13 +6348,18 @@ body {
   font-family: 'Calibri', 'Tahoma', sans-serif;
   background-color: #ffffff;
 }
+/*********************/
+/** Utility classes **/
+/*********************/
+/** Vertical align **/
+.vertical-center {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+}
 /*******************/
 /** Page elements **/
 /*******************/
-/** Success message **/
-.alert-success {
-  display: none;
-}
 /** Drag container **/
 .drag-container {
   margin: 0 auto;
@@ -6380,7 +6385,6 @@ body {
   height: 90px;
   z-index: 5;
   background-color: transparent;
-  /*border: 1px solid red;*/
 }
 .drag-container .img-dest-container .dest-dot[data-dot-color='black'][data-color-index='1'] {
   left: 45px;
@@ -6407,11 +6411,4 @@ body {
 }
 .drag-container .img-dest-container .hover-target-bad {
   background-image: url("../../img/invalid.png");
-}
-.drag-container .img-dest-container .hover-target-none {
-  background-color: transparent;
-}
-/** Buttons container **/
-.logo-buttons {
-  margin: 10px 0;
 }

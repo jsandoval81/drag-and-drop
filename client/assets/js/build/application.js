@@ -12923,15 +12923,25 @@ var App;
 App = (function ($) {
     'use strict';
 
-    //====================================
-    //== Create an App interface object ==
-    //====================================
-    var AppModule = {
-            //== Create an application state object
-            dragInfo: {
+    //================================================
+    //== Create an application state object factory ==
+    //================================================
+    var newState = function () {
+            return {
                 numComplete: 0,
                 dropArea: false,
-                dropTarget: false
+                dropTarget: false,
+                startText: 'Place the dots in their correct locations',
+                endText: 'CONGRATULATIONS!!!'
+            };
+        },
+    //============================================
+    //== Create an application interface object ==
+    //============================================
+        AppModule = {
+            //== Create an application state object
+            init: function () {
+                this.dragInfo = newState();
             },
             //== Begin drag
             beginDrag: function (e) {
@@ -12968,6 +12978,7 @@ App = (function ($) {
                     top: '+=' + topSnap,
                     left: '+=' + leftSnap
                 });
+                return { topSnap: topSnap, leftSnap: leftSnap };
             },
             //== Reset dot to original position
             resetDot: function (dot) {
@@ -12990,42 +13001,47 @@ App = (function ($) {
             //== Update the message label
             updateMessage: function () {
                 $('#complete-count').fadeOut().text(AppModule.dragInfo.numComplete.toString()).fadeIn();
-                if (AppModule.dragInfo.numComplete === 0 && $('#alert-box-start').is(':hidden')) {
-                    $('#alert-box-finish').hide(0);
-                    $('#alert-box-start').fadeIn(600);
+                if (AppModule.dragInfo.numComplete === 0 && $('#alert-box').hasClass('alert-success')) {
+                    $('#alert-box').removeClass('alert-success').addClass('alert-info');
+                    $('#alert-text').text(AppModule.dragInfo.startText);
                 } else if (AppModule.dragInfo.numComplete >= 5) {
-                    $('#alert-box-start').hide(0);
-                    $('#alert-box-finish').fadeIn(600);
+                    $('#alert-box').removeClass('alert-info').addClass('alert-success');
+                    $('#alert-text').text(AppModule.dragInfo.endText);
                 }
-            },
-            //== Reset the state object
-            resetAppState: function () {
-                AppModule.dragInfo.numComplete = 0;
-                AppModule.dragInfo.dropArea = false;
-                AppModule.dragInfo.dropTarget = false;
             }
         };
 
-    //==================================
-    //== Configure draggable elements ==
-    //==================================
+    //==================================================
+    //== Initialize the AppModule object with a state ==
+    //==================================================
+    AppModule.init();
+
+    //===============================
+    //== Initialize the alert text ==
+    //===============================
+    $(document).ready(function () {
+        $('#alert-text').text(AppModule.dragInfo.startText);
+    });
+
+    //=======================================
+    //== Initialize the draggable elements ==
+    //=======================================
     $('.logo-dot').draggable({
         containment: '.drag-container',
         stack: '.logo-dot',
-        start: function (e, ui) {
-            AppModule.beginDrag(e, ui);
+        start: function (e) {
+            AppModule.beginDrag(e);
         },
         stop: function () {
-            //== If 'drop' did not handle the reset, handle it here
             if (!AppModule.dragInfo.dropArea) {
                 AppModule.resetDot(this);
             }
         }
     });
 
-    //==================================
-    //== Configure droppable elements ==
-    //==================================
+    //=======================================
+    //== Initialize the droppable elements ==
+    //=======================================
     $('.dest-dot').droppable({
         accept: '.logo-dot',
         tolerance: 'intersect',
@@ -13051,21 +13067,19 @@ App = (function ($) {
         }
     });
 
-    //====================
-    //== Reset the logo ==
-    //====================
+    //=================================
+    //== Initialize the reset button ==
+    //=================================
     $('#start-over').on('click', function () {
-        //== Reset the dots
         AppModule.resetDot('.logo-dot');
-        //== Reset the event listeners
         AppModule.toggleListeners('.logo-dot', '.dest-dot', 'enable');
-        //== Reset the state object
-        AppModule.resetAppState();
-        //== Update the message label
+        AppModule.init(newState());
         AppModule.updateMessage();
     });
 
-    //== Expose the AppModule object
+    //=================================
+    //== Expose the AppModule object ==
+    //=================================
     return AppModule;
 
 }(jQuery));
