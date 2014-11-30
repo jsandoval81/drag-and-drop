@@ -33,7 +33,15 @@ module.exports = function (grunt) {
                     spawn: true
                 }
             },
-            //== Reload the web page after updates to CSS, JS, and HTML builds
+            //== Lint JS test code after updates
+            testjs: {
+                files: ['client/testing/unit/*.js'],
+                tasks: ['jshint:testjs'],
+                options: {
+                    spawn: true
+                }
+            },
+            //== Reload the web page after updates to CSS, JS, and HTML builds (requires server app)
             livereload: {
                 options: { livereload: true },
                 files: ['client/assets/css/build/**/*.css', 'client/assets/js/build/**/*.js', 'client/*.html']
@@ -85,7 +93,10 @@ module.exports = function (grunt) {
             options: {
                 jshintrc: '.jshintrc'
             },
-            clientjs: ['client/**/*.js', '!client/assets/js/build/*.js', '!client/testing/**/*.js']
+            //== Lint the client application file(s)
+            clientjs: ['client/**/*.js', '!client/assets/js/build/*.js', '!client/testing/**/*.js'],
+            //== Lint the unit test files
+            testjs: ['client/testing/unit/*.js']
         },
 
         //========================
@@ -180,9 +191,9 @@ module.exports = function (grunt) {
     grunt.registerTask('default', ['']);
     //== Test server task (Concat JS dependencies and start server)
     grunt.registerTask('test-server', [ 'concat:testDependencies', 'karma:unit' ]);
-    //== Test task (Run JS tests)
-    grunt.registerTask('test', [ 'karma:unit:run' ]);
+    //== Test task (Lint and run JS tests)
+    grunt.registerTask('test', [ 'jshint:testjs', 'karma:unit:run' ]);
     //== Dev task (Prepare assets, start application, watch for changes)
-    grunt.registerTask('dev', [ 'less:dev', 'csslint:strict', 'concat:css', 'cssmin', 'jshint:clientjs', 'karma:unit:run', 'concat:js', 'concat:testDependencies', 'uglify', 'watch' ]);
+    grunt.registerTask('dev', [ 'less:dev', 'csslint:strict', 'concat:css', 'cssmin', 'jshint:clientjs', 'jshint:testjs', 'karma:unit:run', 'concat:js', 'concat:testDependencies', 'uglify', 'watch' ]);
 
 };

@@ -1,18 +1,23 @@
-
-var expect = chai.expect;
+//====================
+//== Linter globals ==
+//====================
+/* global $, App, after, before, beforeEach, describe, document, expect, it, mocha */
 
 mocha.setup('bdd');
 
 //==============================
 //== Application state object ==
 //==============================
-describe('Application state object', function() {
+describe('Application state object', function () {
+    'use strict';
 
     it('should exist', function () {
-        expect(App.dragInfo).to.exist;
+        //== Evaluate
+        expect(App.dragInfo).to.exist();
     });
 
-    it('should contain correct properties', function() {
+    it('should contain correct properties', function () {
+        //== Evaluate
         expect(App.dragInfo).to.have.property('numComplete');
         expect(App.dragInfo).to.have.property('dropArea');
         expect(App.dragInfo).to.have.property('dropTarget');
@@ -20,7 +25,8 @@ describe('Application state object', function() {
         expect(App.dragInfo).to.have.property('endText');
     });
 
-    it('should have correct default property values', function() {
+    it('should have correct default property values', function () {
+        //== Evaluate
         expect(App.dragInfo.numComplete).to.equal(0);
         expect(App.dragInfo.dropArea).to.equal(false);
         expect(App.dragInfo.dropTarget).to.equal(false);
@@ -34,6 +40,7 @@ describe('Application state object', function() {
 //== Draggable methods ==
 //=======================
 describe('Draggable methods', function () {
+    'use strict';
 
     //== Create event object
     var eventObj;
@@ -46,9 +53,12 @@ describe('Draggable methods', function () {
     //== Test beginDrag() method
     describe('beginDrag() method', function () {
         it('should reset the dropArea and dropTarget values', function () {
+            //== Set test values
             App.dragInfo.dropArea = true;
             App.dragInfo.dropTarget = true;
+            //== Call method
             App.beginDrag(eventObj);
+            //== Evaluate
             expect(App.dragInfo.dropArea).to.equal(false);
             expect(App.dragInfo.dropTarget).to.equal(false);
         });
@@ -59,6 +69,7 @@ describe('Draggable methods', function () {
 //== Droppable methods ==
 //=======================
 describe('Droppable methods', function () {
+    'use strict';
 
     //== Create event objects and temporary DOM container
     var eventObj,
@@ -139,11 +150,12 @@ describe('Droppable methods', function () {
     //== Test snapDot() method
     describe('snapDot() method', function () {
         it('should calculate the correct relative offset', function () {
+            var result;
             //== Set test values
             eventObj.target.offset({ top: 110, left: 110 });
             uiObj.draggable.offset({ top: 100, left: 100 });
             //== Call method
-            var result = App.snapDot(eventObj, uiObj);
+            result = App.snapDot(eventObj, uiObj);
             //== Evaluate
             expect(result.topSnap).to.equal(11);
             expect(result.leftSnap).to.equal(11);
