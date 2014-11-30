@@ -33,10 +33,10 @@ module.exports = function (grunt) {
                     spawn: true
                 }
             },
-            //== Lint JS test code after updates
+            //== Lint and run JS test code after updates
             testjs: {
                 files: ['client/testing/unit/*.js'],
-                tasks: ['jshint:testjs'],
+                tasks: ['jshint:testjs', 'karma:unit:run'],
                 options: {
                     spawn: true
                 }

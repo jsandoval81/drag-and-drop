@@ -14,17 +14,17 @@ module.exports = function (config) {
         //== Files to exclude
         exclude: [],
         //== Possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-        reporters: ['progress'],
-/*        //== Coverage
+        reporters: ['progress', 'coverage'],
+        //== Coverage
         preprocessors: {
           //== Source files for which you want to generate coverage (these files will be instrumented by Istanbul)
-          'client/assets/js/*.js'
+          'client/assets/js/*.js': ['coverage']
         },
         coverageReporter: {
           type: 'html',
           dir: 'client/testing/coverage/'
         },
-*/        //== Web server port
+        //== Web server port
         port: 9876,
         //== Enable/disable colors in the output (reporters and logs)
         colors: true,
@@ -32,7 +32,6 @@ module.exports = function (config) {
         logLevel: config.LOG_INFO,
         //== Enable/disable watching file and executing tests whenever any file changes
         autoWatch: false,
-
         // Start these browsers, currently available:
         // - Chrome
         // - ChromeCanary

@@ -72,6 +72,7 @@ App = (function ($) {
                     left: '0px',
                     opacity: '1'
                 });
+                return dot;
             },
             //== Toggle event listeners
             toggleListeners: function (logo, dest, toggle) {
@@ -111,6 +112,7 @@ App = (function ($) {
     //=======================================
     //== Initialize the draggable elements ==
     //=======================================
+    /* istanbul ignore next */
     $('.logo-dot').draggable({
         containment: '.drag-container',
         stack: '.logo-dot',
@@ -127,6 +129,7 @@ App = (function ($) {
     //=======================================
     //== Initialize the droppable elements ==
     //=======================================
+    /* istanbul ignore next */
     $('.dest-dot').droppable({
         accept: '.logo-dot',
         tolerance: 'intersect',
@@ -155,6 +158,7 @@ App = (function ($) {
     //=================================
     //== Initialize the reset button ==
     //=================================
+    /* istanbul ignore next */
     $('#start-over').on('click', function () {
         AppModule.resetDot('.logo-dot');
         AppModule.toggleListeners('.logo-dot', '.dest-dot', 'enable');

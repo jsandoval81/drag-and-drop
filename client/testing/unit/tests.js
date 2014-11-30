@@ -162,6 +162,20 @@ describe('Droppable methods', function () {
         });
     });
 
+    //== Test resetDot() method
+    describe('resetDot() method', function () {
+        it('should animate the correct element', function () {
+            var result;
+            //== Set test values
+            uiObj.draggable.id = 'this4now';
+            //== Call method
+            result = App.resetDot(uiObj.draggable);
+            //== Evaluate
+            expect(result.id).to.equal('this4now');
+        });
+
+    });
+
     //== Test toggleListeners() method
     describe('toggleListeners() method', function () {
         it('should correctly disable drag and drop events', function () {
